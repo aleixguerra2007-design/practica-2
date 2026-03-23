@@ -5,7 +5,7 @@ public class BungalowPremium extends Bungalow{
     private boolean llencolsYTovalloles;
 
     //Constructor de la subclase Bungalow
-    public BungalowPremium(String nom, String identificador, String iluminacio, boolean operatiu, Mida mida, int numHabitacions, int placesPersones,
+    public BungalowPremium(String nom, String identificador, String iluminacio, boolean operatiu, float mida, int numHabitacions, int placesPersones,
                            int placesPK, boolean terrassa, boolean televisio, boolean aireFred, boolean llencolsYTovalloles,
                            String clauWifi){
         super(nom, identificador, iluminacio, operatiu, mida, numHabitacions, placesPersones, placesPK, terrassa, televisio, aireFred);

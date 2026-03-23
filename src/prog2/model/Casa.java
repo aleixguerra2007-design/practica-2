@@ -3,13 +3,12 @@ package prog2.model;
 
 
 public abstract class Casa extends Allotjament{
-    enum Mida {PETITA, MITJANA, GRAN};
     private int numHabitacions;
-    private Mida mida;
+    private float mida;
     private int placesPersones;
 
     public Casa(String nom, String identificador, long estadaMinimaALTA, long estadaMinimaBAIXA, boolean operatiu, String iluminacio,
-                int numHabitacions, Mida mida, int placesPersones){
+                int numHabitacions, float mida, int placesPersones){
         super(nom, identificador, estadaMinimaALTA, estadaMinimaBAIXA, operatiu, iluminacio);
         this.numHabitacions = numHabitacions;
         this.mida = mida;
@@ -36,7 +35,7 @@ public abstract class Casa extends Allotjament{
     Setter del atributo mida
     @param newMida
      */
-    public void setMida(Mida newMida){
+    public void setMida(float newMida){
         this.mida = newMida;
     }
 
@@ -44,7 +43,7 @@ public abstract class Casa extends Allotjament{
     Getter del atributo mida
     @return mida
      */
-    public Mida getMida(){
+    public float getMida(){
         return mida;
     }
 
@@ -70,6 +69,6 @@ public abstract class Casa extends Allotjament{
      */
     @Override
     public String toString(){
-        return super.toString() + " Habitacions = " + getNumHabitacions() + ", mida = " + getMida().name() + ", placesPersones = " + getPlacesPersones() + ".";
+        return super.toString() + " Habitacions = " + getNumHabitacions() + ", mida = " + getMida() + ", placesPersones = " + getPlacesPersones() + ".";
     }
 }

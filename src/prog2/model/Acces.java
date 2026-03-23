@@ -12,10 +12,10 @@ public abstract class Acces implements InAcces{
     private LlistaAllotjaments llistaAllotjaments;
 
     //Constructor de la clase:
-    public Acces(String nom, boolean accessibilitat){
+    public Acces(String nom, boolean estat){
         this.nom = nom;
-        this.accessibilitat = accessibilitat;
-        this.estat = true;
+        this.accessibilitat = isAccessibilitat();
+        this.estat = estat;
         llistaAllotjaments = new LlistaAllotjaments();
     }
 
@@ -56,9 +56,7 @@ public abstract class Acces implements InAcces{
      * @return
      */
     @Override
-    public boolean isAccessibilitat() {
-        return accessibilitat;
-    }
+    public abstract boolean isAccessibilitat();
 
     /**
      * Retorna el nom de l'accés

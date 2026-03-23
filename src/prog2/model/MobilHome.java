@@ -3,7 +3,7 @@ package prog2.model;
 public class MobilHome extends Casa{
     private boolean terrassaAmbBarbacoa;
 
-    public MobilHome(String nom, String identificador, String iluminacio, boolean operatiu, Mida mida, int numHabitacions,
+    public MobilHome(String nom, String identificador, String iluminacio, boolean operatiu, float mida, int numHabitacions,
                      int placesPersones, boolean terrassaAmbBarbacoa){
         super(nom, identificador,5, 3, operatiu, iluminacio,  numHabitacions, mida, placesPersones);
         this.terrassaAmbBarbacoa = terrassaAmbBarbacoa;

@@ -10,7 +10,7 @@ public class Bungalow extends Casa{
     private boolean aireFred;
 
     //Constructor de la subclase Bungalow
-    public Bungalow(String nom, String identificador, String iluminacio, boolean operatiu, Mida mida, int numHabitacions, int placesPersones,
+    public Bungalow(String nom, String identificador, String iluminacio, boolean operatiu, float mida, int numHabitacions, int placesPersones,
                     int placesPK, boolean terrassa, boolean televisio, boolean aireFred){
         super(nom, identificador, 7, 4, operatiu, iluminacio,  numHabitacions, mida, placesPersones);
 
