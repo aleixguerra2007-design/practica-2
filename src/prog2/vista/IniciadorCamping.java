@@ -3,6 +3,9 @@ package prog2.vista;
 /**
  *
  * @author lauraigual
+ *
+ * IniciadorCamping és una classe que crea un objecte de la classe VistaCamping i conté el main del programa
+ * cridant al métode gestioCamping de VistaCamping per iniciar el menú principal.
  */
 public class IniciadorCamping {
     
