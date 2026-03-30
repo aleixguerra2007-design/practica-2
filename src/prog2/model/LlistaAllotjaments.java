@@ -1,13 +1,27 @@
 package prog2.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import prog2.vista.ExcepcioCamping;
 
-public class LlistaAllotjaments implements InLlistaAllotjaments {
+/**
+ * @author Yucheng Guo i Aleix Gutiérrez
+ *
+ * LlistaAllotjaments és una classe que engloba a la classe Allotjaments per així gestionar
+ * diversos objectes d'aquesta última classe amb una ArrayList; per tant, aquí es defineixen métodes
+ * que permeten afegir allotjaments a la lista, buidar-la, mostrar l'informació dels allotjaments amb un
+ * estat concret, cercar per el nom o id...
+ */
+public class LlistaAllotjaments implements InLlistaAllotjaments, Serializable {
+    /**
+     * Atribut de la classe LlistaAllotjaments
+     */
     private ArrayList<Allotjament>  llistaAllotjaments;
 
-    //Constructor de la clase:
+    /**
+     * Constructor de la classe LlistaAllotjaments per defecte
+     */
     public LlistaAllotjaments(){
         this.llistaAllotjaments = new ArrayList<>();
     }
@@ -54,15 +68,30 @@ public class LlistaAllotjaments implements InLlistaAllotjaments {
      */
     @Override
     public String llistarAllotjaments(String estat) throws ExcepcioCamping {
-        int coincidencias = 0;
-        //Buscamos los alojamientos que coincidan con el estado indicado:
-        Iterator<Allotjament> allotjamentIterator = llistaAllotjaments.iterator();
+
+        //Ponemos en minúscula el string estat
+        estat = estat.toLowerCase();
+        String resultat = "";
+
+        //Mostramos todos los alojamientos si se desea
+        boolean mostrarTodos = estat.equals("tots");
+
+        Iterator<Allotjament> itAllotjaments = llistaAllotjaments.iterator();
         Allotjament allotjament;
-        while(allotjamentIterator.hasNext()){
-            allotjament = allotjamentIterator.next();
-            //TODO
+        while(itAllotjaments.hasNext()){
+            allotjament = itAllotjaments.next();
+            if((allotjament.isOperatiu() && estat.equals("operatiu")) || mostrarTodos) {
+                resultat += allotjament.toString() + "\n";
+            } else if((!allotjament.isOperatiu() && estat.equals("no operatiu")) || mostrarTodos) {
+                resultat += allotjament.toString() + "\n";
+            }
         }
-        return "";
+
+        if(resultat.isEmpty()) {
+            throw new ExcepcioCamping("No hi ha allotjaments amb l'estat: " + estat);
+        }
+
+        return resultat;
     }
 
     /**
@@ -121,5 +150,48 @@ public class LlistaAllotjaments implements InLlistaAllotjaments {
             }
         }
         throw new ExcepcioCamping("No s'ha trobat l'allotjament amb identificador " + id + ".");
+    }
+
+    /**
+     * Devuelve un String con los nombres de los alojamientos almacenados
+     *
+     * @return nombres de los alojamientos
+     */
+    public String nomsAllotjaments(){
+        String nombres = "";
+        int total = llistaAllotjaments.size();
+        int contador = 0;
+
+        Iterator <Allotjament> iterator = llistaAllotjaments.iterator();
+        Allotjament allotjament;
+        while(iterator.hasNext()){
+            allotjament = iterator.next();
+            nombres += allotjament.getNom();
+            if(contador != total - 1){
+                nombres += ", ";
+            }
+            contador++;
+        }
+        return nombres;
+    }
+
+    /**
+     * Busca un allotjament concreto pel nom:
+     *
+     * @param nomAllotjament (String)
+     * @return Allotjament
+     */
+    public Allotjament getAllotjamentByName(String nomAllotjament) throws ExcepcioCamping{
+        Allotjament allotjamentBuscado = null;
+        Iterator<Allotjament> it = llistaAllotjaments.iterator();
+        Allotjament allotjament;
+        while(it.hasNext()){
+            allotjament = it.next();
+            if(allotjament.getNom().equals(nomAllotjament)){
+                allotjamentBuscado = allotjament;
+                return allotjamentBuscado;
+            }
+        }
+        throw new ExcepcioCamping("No hi ha cap allotjament amb el nom: " + nomAllotjament);
     }
 }

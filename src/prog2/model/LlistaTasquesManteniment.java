@@ -2,7 +2,31 @@ package prog2.model;
 
 import prog2.vista.ExcepcioCamping;
 
-public class LlistaTasquesManteniment implements InLlistaTasquesManteniment{
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/**
+ * @author Yucheng Guo i Aleix Gutiérrez
+ *
+ * LlistaTasquesManteniment és una classe que engloba a la classe TascaManteniment, amb l'objectiu de
+ * gestionar diversos objectes d'aquesta classe amb una ArrayList. D'aquesta manera, aquí trobem métodes
+ * que permeten afegir noves tasques de manteniment a la llista, buidar-la, completar una tasca concreta, mostrar
+ * l'informació de les tasques registrades...
+ */
+public class LlistaTasquesManteniment implements InLlistaTasquesManteniment, Serializable {
+    /**
+     * Atribut de la classe LlistaTasquesManteniment
+     */
+    private ArrayList<TascaManteniment> llistaTasquesManteniment;
+
+    /**
+     * Constructor de la classe LlistaTasquesManteniment per defecte
+     */
+    public LlistaTasquesManteniment(){
+        this.llistaTasquesManteniment = new ArrayList<>();
+    }
+
     /**
      * Aquest mètode crea una tasca de manteniment amb la informació passada com a paràmetres
      * (número d'identificador, tipus, l'allotjament on s'ha produït, la data, i els dies esperats per completar-la) i l'afegeix a la llista.
@@ -19,6 +43,25 @@ public class LlistaTasquesManteniment implements InLlistaTasquesManteniment{
     @Override
     public void afegirTascaManteniment(int num, String tipus, Allotjament allotjament, String data, int dies) throws ExcepcioCamping {
 
+        //Nos aseguramos de que el tipo de tarea exista:
+        if(!tipus.equals("Neteja") && !tipus.equals("Reparacio") && !tipus.equals("RevisioTecnica") && !tipus.equals("Desinfeccio")){
+            throw new ExcepcioCamping("No existeix el tipus de tasca indicat");
+        }
+
+        //Comprobamos que el alojamiento indicado no tiene una tarea ya asignada:
+        Iterator<TascaManteniment> it = llistaTasquesManteniment.iterator();
+        TascaManteniment tasca;
+        while(it.hasNext()){
+            tasca = it.next();
+            if(tasca.getAllotjament().getId().equals(allotjament.getId())){
+                throw new ExcepcioCamping("L'allotjament ja té una tasca de manteniment assignada.");
+            }
+        }
+
+        //Creamos un objeto de la clase TascaManteniment y lo añadimos a la lista:
+        TascaManteniment newTasca = new TascaManteniment(num, TascaManteniment.TipusTascaManteniment.valueOf(tipus), allotjament, data, dies);
+        llistaTasquesManteniment.add(newTasca);
+        allotjament.tancarAllotjament(newTasca);
     }
 
     /**
@@ -29,6 +72,28 @@ public class LlistaTasquesManteniment implements InLlistaTasquesManteniment{
      */
     @Override
     public void completarTascaManteniment(TascaManteniment tasca) throws ExcepcioCamping {
+        //Lanzamos excepción si la lista de tareas está vacía
+        if(llistaTasquesManteniment.isEmpty()){
+            throw new ExcepcioCamping("No hi ha cap tasca de manteniment registrada.");
+        }
+
+        boolean encontrado = false;
+
+        //Recorremos la lista de tareas para eliminar la tarea indicada
+        Iterator<TascaManteniment> it = llistaTasquesManteniment.iterator();
+        TascaManteniment tascaManteniment;
+        while(it.hasNext() && !encontrado){
+            tascaManteniment = it.next();
+            if(tascaManteniment.getNum() == tasca.getNum()){
+                it.remove();
+                encontrado = true;
+            }
+        }
+        if(!encontrado){
+            throw new ExcepcioCamping("Aquesta tasca no esta registrada.");
+        }
+
+        tasca.getAllotjament().obrirAllotjament();
 
     }
 
@@ -41,7 +106,22 @@ public class LlistaTasquesManteniment implements InLlistaTasquesManteniment{
      */
     @Override
     public String llistarTasquesManteniment() throws ExcepcioCamping {
-        return "";
+        //Lanzamos excepción si la lista de tareas está vacía
+        if(llistaTasquesManteniment.isEmpty()){
+            throw new ExcepcioCamping("No hi ha cap tasca de manteniment registrada.");
+        }
+
+        String resultado = "";
+
+        //Recorremos la lista de tareas llamando al método toString de cada una
+        Iterator<TascaManteniment> it = llistaTasquesManteniment.iterator();
+        TascaManteniment tasca;
+        while(it.hasNext()){
+            tasca = it.next();
+            resultado += tasca.toString() + "\n";
+        }
+
+        return resultado;
     }
 
     /**
@@ -54,6 +134,24 @@ public class LlistaTasquesManteniment implements InLlistaTasquesManteniment{
      */
     @Override
     public TascaManteniment getTascaManteniment(int num) throws ExcepcioCamping {
-        return null;
+        boolean encontrado = false;
+
+        //Buscamos la tarea indicada en la lista de tareas:
+        Iterator<TascaManteniment> it = llistaTasquesManteniment.iterator();
+        TascaManteniment tasca;
+        TascaManteniment tascaBuscada = null;
+
+        while(it.hasNext() && !encontrado){
+            tasca = it.next();
+            if(tasca.getNum() == num){
+                encontrado = true;
+                tascaBuscada = tasca;
+            }
+        }
+        if(!encontrado){
+            throw new ExcepcioCamping("No existeix cap tasca amb aquest identificador.");
+        }
+
+        return tascaBuscada;
     }
 }

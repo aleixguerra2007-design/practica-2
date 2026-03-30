@@ -1,16 +1,41 @@
 package prog2.model;
 
+import java.io.Serializable;
+
 import static prog2.model.InAllotjament.Temp.ALTA;
 import static prog2.model.InAllotjament.Temp.BAIXA;
 
-public class Bungalow extends Casa{
+/**
+ * @author Yucheng Guo i Aleix Gutiérrez
+ *
+ * Bungalow és una classe filla de Casa que representa un tipus d'allotjament
+ * dins del càmping que té més atributs: places de pàrquing, booleans que indican si hi ha
+ * terrassa, televisió o aireFred. És la classe pare de BungalowPremium.
+ */
+public class Bungalow extends Casa implements Serializable {
+    /**
+     * Atributs de la classe Bungalow:
+     */
     private int placesPK; //NOTA: 1 o 2
     private boolean terrassa;
     private boolean televisio;
     private boolean aireFred;
 
-    //Constructor de la subclase Bungalow
-    public Bungalow(String nom, String identificador, String iluminacio, boolean operatiu, float mida, int numHabitacions, int placesPersones,
+    /**
+     * Constructor de la classe Bungalow amb paràmetres
+     * @param nom de l'allotjament
+     * @param identificador (String)
+     * @param operatiu (boolean)
+     * @param iluminacio (String)
+     * @param mida (float)
+     * @param numHabitacions (int)
+     * @param placesPersones (int)
+     * @param placesPK (1 o 2)
+     * @param terrassa (boolean)
+     * @param televisio (boolean)
+     * @param aireFred (boolean)
+     */
+    public Bungalow(String nom, String identificador, boolean operatiu, String iluminacio, float mida, int numHabitacions, int placesPersones,
                     int placesPK, boolean terrassa, boolean televisio, boolean aireFred){
         super(nom, identificador, 7, 4, operatiu, iluminacio,  numHabitacions, mida, placesPersones);
 
@@ -25,10 +50,10 @@ public class Bungalow extends Casa{
         this.televisio = televisio;
         this.aireFred = aireFred;
     }
-    
-    /*
-    Setter del atributo placesPK:
-    @param newPlacesPK
+
+    /**
+     * Setter de l'atribut placesPk
+     * @param newPlacesPK (int)
      */
     public void setPlacesPK(int newPlacesPK){
         //Dejamos el valor original si el nuevo valor es diferente de 1 y de 2
@@ -37,71 +62,74 @@ public class Bungalow extends Casa{
         }
     }
 
-    /*
-    Getter del atributo placesPK
-    @return placesPK
+    /**
+     * Getter de l'atribut placesPK
+     * @return int
      */
     public int getPlacesPK(){
         return placesPK;
     }
 
-    /*
-    Setter del atributo terrassa
-    @param newTerrassa
+    /**
+     * Setter de l'atribut terrassa
+     * @param newTerrassa (boolean)
      */
     public void setTerrassa(boolean newTerrassa){
         this.terrassa = newTerrassa;
     }
 
-    /*
-    Getter del atributo terrassa
-    @return terrassa
+    /**
+     * Getter de l'atribut terrassa
+     * @return boolean
      */
     public boolean getTerrassa(){
         return terrassa;
     }
 
-    /*
-    Setter del atributo televisio
-    @param newTelevisio
+    /**
+     * Setter de l'atribut televisio
+     * @param newTelevisio (boolean)
      */
     public void setTelevisio(boolean newTelevisio){
         this.televisio = newTelevisio;
     }
 
-    /*
-    Getter del atributo televisio
-    @return televisio
+    /**
+     * Getter de l'atribut televisio
+     * @return boolean
      */
     public boolean getTelevisio(){
         return televisio;
     }
 
-    /*
-    Setter del atributo aireFred
-    @param newAireFred
+    /**
+     * Setter de l'atribut aireFred
+     * @param newAireFred (boolean)
      */
     public void setAireFred(boolean newAireFred){
         this.aireFred = newAireFred;
     }
 
-    /*
-    Getter del atributo airefred
-    @return aireFred
+    /**
+     * Getter de l'atribut aireFred
+     * @return boolean
      */
     public boolean getAireFred(){
         return aireFred;
     }
 
-    //El Bungalow estará operativo si tiene aire acondicionado
+    /**
+     * Bungalow està operatiu si aireFred == true;
+     * @return boolean
+     */
     @Override
     public boolean correcteFuncionament() {
         return aireFred;
     }
 
-    /*
-    Este método devuelve los datos del Bungalow
-    @return string con los datos del Bungalow
+    /**
+     * Retorna un String amb les dades del Bungalow
+     * @return
      */
     @Override
     public String toString(){

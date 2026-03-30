@@ -1,12 +1,35 @@
 package prog2.model;
 
 
+import java.io.Serializable;
 
-public abstract class Casa extends Allotjament{
+/**
+ * @author Yucheng Guo i Aleix Gutiérrez
+ *
+ * Casa és una classefilla d'Allotjament que representa els allotjaments del càmping
+ * que tenen un nombre d'habitacions, mida i places de persones concret. És la classe
+ * pare de Bungalow (Bungalow Premium), MobilHome i Glamping.
+ */
+public abstract class Casa extends Allotjament implements Serializable {
+    /**
+     * Atributs de la classe Casa
+     */
     private int numHabitacions;
     private float mida;
     private int placesPersones;
 
+    /**
+     * Constructor de la classe Casa
+     * @param nom de l'allotjament
+     * @param identificador (String)
+     * @param estadaMinimaALTA (long)
+     * @param estadaMinimaBAIXA (long)
+     * @param operatiu (boolean)
+     * @param iluminacio (String)
+     * @param numHabitacions (int)
+     * @param mida (float)
+     * @param placesPersones (int)
+     */
     public Casa(String nom, String identificador, long estadaMinimaALTA, long estadaMinimaBAIXA, boolean operatiu, String iluminacio,
                 int numHabitacions, float mida, int placesPersones){
         super(nom, identificador, estadaMinimaALTA, estadaMinimaBAIXA, operatiu, iluminacio);
@@ -15,57 +38,57 @@ public abstract class Casa extends Allotjament{
         this.placesPersones = placesPersones;
     }
 
-    /*
-    Setter del atributo numHabitacions
-    @param  newNumHabitacions
+    /**
+     * Setter de l'atribut numHabitacions
+     * @param newNumHabitacions (int)
      */
     public void setNumHabitacions(int newNumHabitacions){
         this.numHabitacions = newNumHabitacions;
     }
 
-    /*
-    Getter del atributo numHabitacions
-    @return numHabitacions
+    /**
+     * Getter de l'atribut numHabitacions
+     * @return int
      */
     public int getNumHabitacions(){
         return numHabitacions;
     }
 
-    /*
-    Setter del atributo mida
-    @param newMida
+    /**
+     * Setter de l'atribut mida
+     * @param newMida (float)
      */
     public void setMida(float newMida){
         this.mida = newMida;
     }
 
-    /*
-    Getter del atributo mida
-    @return mida
+    /**
+     * Getter de l'atribut mida
+     * @return float
      */
     public float getMida(){
         return mida;
     }
 
-    /*
-    Setter del atributo placesPersones
-    @param newPlacesPersones
+    /**
+     * Setter de l'atribut placesPersones
+     * @param newPlacesPersones (int)
      */
     public void setPlacesPersones(int newPlacesPersones){
         this.placesPersones = newPlacesPersones;
     }
 
-    /*
-    Getter del atributo placesPersones
-    @return placesPersones
+    /**
+     * Getter de l'atribut placesPersones
+     * @return int
      */
     public int getPlacesPersones(){
         return placesPersones;
     }
 
-    /*
-    Este método devuelve los datos del alojamiento relacionados con la clase Casa
-    @return String con los datos de la casa
+    /**
+     * Retorna un String amb les dades generals de la Casa
+     * @return String
      */
     @Override
     public String toString(){

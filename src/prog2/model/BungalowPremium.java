@@ -1,63 +1,90 @@
 package prog2.model;
 
-public class BungalowPremium extends Bungalow{
+import java.io.Serializable;
+
+/**
+ * @author Yucheng Guo i Aleix Gutiérrez
+ *
+ * BungalowPremium és la classe filla de Bungalow que representa un tipus específic
+ * d'aquest allotjament que té wifi i serveis extra.
+ */
+public class BungalowPremium extends Bungalow implements Serializable {
+    /**
+     * Atributs de la classe BungalowPremium
+     */
     private String clauWifi;
     private boolean llencolsYTovalloles;
 
-    //Constructor de la subclase Bungalow
-    public BungalowPremium(String nom, String identificador, String iluminacio, boolean operatiu, float mida, int numHabitacions, int placesPersones,
+    /**
+     * Constructor de la classe BungalowPremium
+     * @param nom de l'allotjament
+     * @param identificador (String)
+     * @param operatiu (boolean)
+     * @param iluminacio (String)
+     * @param mida (float)
+     * @param numHabitacions (int)
+     * @param placesPersones (int)
+     * @param placesPK (1 o 2)
+     * @param terrassa (boolean)
+     * @param televisio (boolean)
+     * @param aireFred (boolean)
+     * @param llencolsYTovalloles (boolean)
+     * @param clauWifi (String)
+     */
+    public BungalowPremium(String nom, String identificador, boolean operatiu, String iluminacio, float mida, int numHabitacions, int placesPersones,
                            int placesPK, boolean terrassa, boolean televisio, boolean aireFred, boolean llencolsYTovalloles,
                            String clauWifi){
-        super(nom, identificador, iluminacio, operatiu, mida, numHabitacions, placesPersones, placesPK, terrassa, televisio, aireFred);
+        super(nom, identificador, operatiu, iluminacio, mida, numHabitacions, placesPersones, placesPK, terrassa, televisio, aireFred);
         this.llencolsYTovalloles = llencolsYTovalloles;
         this.clauWifi = clauWifi;
     }
 
-    /*
-    Setter del atributo clauWifi
-    @param newClauWifi
+    /**
+     * Setter de l'atribut clauWifi
+     * @param newClauWifi (String)
      */
     public void setClauWifi(String newClauWifi){
         this.clauWifi = newClauWifi;
     }
 
-    /*
-    Getter del atributo clauWifi
-    @return clauWifi
+    /**
+     * Getter de l'atribut clauWifi
+     * @return String
      */
     public String getClauWifi(){
         return clauWifi;
     }
 
-    /*
-    Setter del atributo llencolsYTovalloles
-    @param newLlencolsYTovalloles
+    /**
+     * Setter de l'atribut llencolsYTovalloles
+     * @param newLlencolsYTovalloles (boolean)
      */
     public void setLlencolsYTovalloles(boolean newLlencolsYTovalloles){
         this.llencolsYTovalloles = newLlencolsYTovalloles;
     }
 
-    /*
-    Getter del atributo llencolsYTovalloles
-    @return llencolsYTovalloles
+    /**
+     * Getter de l'atribut llencolsYTovalloles
+     * @return boolean
      */
     public boolean getLlencolsYTovalloles(){
         return llencolsYTovalloles;
     }
 
-    /*
-    Setter del atributo
-     */
 
-    //El Bungalow estará operativo si tiene aire acondicionado y la clave Wifi tiene entre 8 y 16 caracteres
+    /**
+     * BungalowPremium està operatiu si té una clau wifi amb un
+     * mínim de 8 caràcters i un màxim de 16.
+     * @return boolean
+     */
     @Override
     public boolean correcteFuncionament() {
         return getAireFred() && clauWifi != null && clauWifi.length() <= 16 && clauWifi.length() >= 8;
     }
 
-    /*
-    Este método devuelve los datos del Bungalow Premium
-    @return string con los datos del Bungalow Premium
+    /**
+     * Retorna un String amb les dades del BungalowPremium
+     * @return String
      */
     @Override
     public String toString(){

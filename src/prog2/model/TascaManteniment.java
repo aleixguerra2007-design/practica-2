@@ -1,14 +1,35 @@
 package prog2.model;
 
-public class TascaManteniment implements InTascaManteniment{
+import java.io.Serializable;
+
+/**
+ * @author Yucheng Guo i Aleix Gutiérrez
+ *
+ * TascaManteniment és una classe que representa les tasques realitzades en el càmping per
+ * mantenir el correcte funcionament dels allotjaments. Cada objecte d'aquesta classe té un tipus
+ * concret, un identificador, allotjament assignat, una data i els dies que trigarà.
+ */
+public class TascaManteniment implements InTascaManteniment, Serializable {
+
     public static enum TipusTascaManteniment {Reparacio, Neteja, RevisioTecnica, Desinfeccio}
+
+    /**
+     * Atributs de la classe TascaManteniment
+     */
     private int num;
     private Allotjament allotjament;
     private String data;
     private TipusTascaManteniment tipus;
     private int dies;
 
-    //Constructior de la clase:
+    /**
+     * Constructor de la classe TascaManteniment
+     * @param num identificador (int)
+     * @param tipus (Neteja, Reparacio, RevisioTecnica o Desinfeccio)
+     * @param allotjament assignat (Allotjament)
+     * @param data (String)
+     * @param dies (int)
+     */
     public TascaManteniment(int num, TipusTascaManteniment tipus, Allotjament allotjament, String data, int dies){
         this.num = num;
         this.tipus = tipus;
@@ -128,6 +149,11 @@ public class TascaManteniment implements InTascaManteniment{
         return allotjament.getIluminacio();
     }
 
+    /**
+     * Retorna un String amb les dades de la tasca de manteniment
+     * @return String
+     */
+    @Override
     public String toString(){
         return "Num: " + num + ", Tipus: " + tipus + ", Allotjament: " + allotjament.getId() + ", Data: " + data + ", Dies: " + dies + ".";
     }
