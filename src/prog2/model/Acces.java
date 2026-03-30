@@ -2,16 +2,35 @@ package prog2.model;
 
 import prog2.vista.ExcepcioCamping;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public abstract class Acces implements InAcces{
+/**
+ * @author Yucheng Guo i Aleix Gutiérrez
+ *
+ * Acces és una classe que representa els accessos als diferents
+ * allotjaments del càmping. És la classe pare de les classes AccesAsfalt i AccesTerra
+ * (i, per tant, de CarreteraAsfaltada, CarreteraTerra, CamiAsfaltat, CamiTerra)
+ * Cada objecte d'aquesta classe té associat un nom, un estat, un booleà que indica accessibilitat
+ * amb cotxe o no i un objecte de la classe LlistaAllotjaments que conté els allotjaments conectats
+ * amb l'accés.
+ */
+public abstract class Acces implements InAcces, Serializable {
+    /**
+     * Atributs de la classe Acces
+     */
     private String nom;
     private boolean accessibilitat;
     private boolean estat;
     private LlistaAllotjaments llistaAllotjaments;
 
-    //Constructor de la clase:
+    /**
+     * Constructor de la classe Acces amb paràmetres:
+     *
+     * @param nom de l'accés
+     * @param estat (Obert o tancat)
+     */
     public Acces(String nom, boolean estat){
         this.nom = nom;
         this.accessibilitat = isAccessibilitat();
@@ -23,7 +42,7 @@ public abstract class Acces implements InAcces{
     /**
      * Afegeix un allotjament rebut com a paràmetre a la llista d'allotjaments de l'accés
      *
-     * @param allotjament
+     * @param allotjament nou
      */
     @Override
     public void afegirAllotjament(Allotjament allotjament) {
@@ -53,7 +72,7 @@ public abstract class Acces implements InAcces{
     /**
      * Retorna si l'accés permet accessibilitat amb cotxe o no.
      *
-     * @return
+     * @return boolean
      */
     @Override
     public abstract boolean isAccessibilitat();
@@ -61,7 +80,7 @@ public abstract class Acces implements InAcces{
     /**
      * Retorna el nom de l'accés
      *
-     * @return
+     * @return String
      */
     @Override
     public String getNom() {
@@ -69,8 +88,8 @@ public abstract class Acces implements InAcces{
     }
 
     /**
-     * Setter del atributo nom
-     * @param nom
+     * Setter de l'atribut nom
+     * @param nom nou de l'accés
      */
     public void setNom(String nom){
         this.nom = nom;
@@ -79,7 +98,7 @@ public abstract class Acces implements InAcces{
     /**
      * Retorna l'estat de l'accés (obert o tancat)
      *
-     * @return
+     * @return boolean
      */
     @Override
     public boolean getEstat() {
@@ -89,10 +108,19 @@ public abstract class Acces implements InAcces{
     /**
      * Retorna la llista d'allotjaments associats a l'accés
      *
-     * @return
+     * @return LlistaAllotjaments
      */
     @Override
-    public LlistaAllotjaments getAAllotjaments() {
-        return llistaAllotjaments;
+    public LlistaAllotjaments getAAllotjaments() { return llistaAllotjaments; }
+
+    /**
+     * Retorna un String amb les dades generals del Acces
+     *
+     * @return String
+     */
+    @Override
+    public String toString(){
+        return "Nom: " + getNom() + ", Accessibilitat amb cotxe: " + isAccessibilitat() + ", Estat: " + getEstat() +
+                ", Allotjaments: " + llistaAllotjaments.nomsAllotjaments() + ", ";
     }
 }
